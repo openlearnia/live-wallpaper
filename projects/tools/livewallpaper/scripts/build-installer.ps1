@@ -4,6 +4,7 @@ $csproj = Join-Path $root "src\LiveWallpaper.App\LiveWallpaper.App.csproj"
 $version = (Select-Xml -Path $csproj -XPath "//Version[1]").Node.InnerText.Trim()
 $productVersion = if ($version -match '^\d+\.\d+\.\d+$') { "$version.0" } else { $version }
 $publishDir = Join-Path $root "publish\win-x64"
+$iconPath = Join-Path $root "assets\icon.ico"
 $installerDir = Join-Path $root "installer"
 $wxsGenerated = Join-Path $installerDir "ProductComponents.wxs"
 $msiOut = Join-Path $root "dist\LiveWallpaper-$version-x64.msi"
@@ -38,7 +39,7 @@ Write-Host "Harvesting files with heat..."
     -gg -sfrag -srd -out $wxsGenerated
 
 Write-Host "Compiling MSI..."
-& candle.exe "-dPublishDir=$publishDir" "-dProductVersion=$productVersion" `
+& candle.exe "-dPublishDir=$publishDir" "-dProductVersion=$productVersion" "-dIconPath=$iconPath" `
     (Join-Path $installerDir "LiveWallpaper.wxs") `
     $wxsGenerated `
     -out (Join-Path $installerDir "obj\\")
