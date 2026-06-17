@@ -1,0 +1,65 @@
+name: Release Live Wallpaper
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release tag (e.g. v0.1.0)'
+        required: true
+        default: 'v0.1.0'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: projects/tools/livewallpaper
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Install WiX Toolset v3
+        run: choco install wixtoolset --version=3.14.0.6526 -y --no-progress
+
+      - name: Add WiX to PATH
+        shell: pwsh
+        run: Add-Content -Path $env:GITHUB_PATH -Value "C:\Program Files (x86)\WiX Toolset v3.14\bin"
+
+      - name: Build MSI
+        shell: pwsh
+        run: powershell -ExecutionPolicy Bypass -File scripts/build-installer.ps1
+
+      - name: Create portable zip
+        shell: pwsh
+        run: |
+          $csproj = "src/LiveWallpaper.App/LiveWallpaper.App.csproj"
+          $version = (Select-Xml -Path $csproj -XPath "//Version[1]").Node.InnerText.Trim()
+          Compress-Archive -Path "publish/win-x64/*" -DestinationPath "dist/LiveWallpaper-$version-win-x64-portable.zip" -Force
+
+      - name: Publish GitHub Release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $tag = if ('${{ github.event_name }}' -eq 'workflow_dispatch') { '${{ inputs.version }}' } else { '${{ github.ref_name }}' }
+          $csproj = "src/LiveWallpaper.App/LiveWallpaper.App.csproj"
+          $version = (Select-Xml -Path $csproj -XPath "//Version[1]").Node.InnerText.Trim()
+          $args = @(
+            'release', 'create', $tag,
+            '--repo', '${{ github.repository }}',
+            '--title', "Live Wallpaper $version",
+            '--notes', "Windows x64 MSI installer and portable zip for Live Wallpaper $version."
+          )
+          if ($version -match '^0\.') { $args += '--prerelease' }
+          $args += "dist/LiveWallpaper-$version-x64.msi"
+          $args += "dist/LiveWallpaper-$version-win-x64-portable.zip"
+          gh @args
