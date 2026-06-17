@@ -55,8 +55,10 @@ jobs:
           $tag = if ('${{ github.event_name }}' -eq 'workflow_dispatch') { '${{ inputs.version }}' } else { '${{ github.ref_name }}' }
           $csproj = "src/LiveWallpaper.App/LiveWallpaper.App.csproj"
           $version = (Select-Xml -Path $csproj -XPath "//Version[1]").Node.InnerText.Trim()
-          $msi = (Resolve-Path "dist/LiveWallpaper-$version-x64.msi").Path
-          $zip = (Resolve-Path "dist/LiveWallpaper-$version-win-x64-portable.zip").Path
+          $msi = "dist/LiveWallpaper-$version-x64.msi"
+          $zip = "dist/LiveWallpaper-$version-win-x64-portable.zip"
+          if (-not (Test-Path $msi)) { throw "MSI not found: $msi" }
+          if (-not (Test-Path $zip)) { throw "Portable zip not found: $zip" }
           $ghArgs = @(
             'release', 'create', $tag,
             '--repo', '${{ github.repository }}',
@@ -64,6 +66,6 @@ jobs:
             '--notes', "Windows x64 MSI installer and portable zip for Live Wallpaper $version."
           )
           if ($version -match '^0\.') { $ghArgs += '--prerelease' }
-          $ghArgs += $msi
-          $ghArgs += $zip
+          $ghArgs += (Resolve-Path $msi).Path
+          $ghArgs += (Resolve-Path $zip).Path
           gh @ghArgs

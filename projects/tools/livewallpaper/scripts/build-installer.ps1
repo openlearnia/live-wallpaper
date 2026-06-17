@@ -34,14 +34,17 @@ Write-Host "Harvesting files with heat..."
     -gg -sfrag -srd -out $wxsGenerated
 
 Write-Host "Compiling MSI..."
-& candle.exe -dPublishDir=$publishDir -dProductVersion=$productVersion `
+& candle.exe "-dPublishDir=$publishDir" "-dProductVersion=$productVersion" `
     (Join-Path $installerDir "LiveWallpaper.wxs") `
     $wxsGenerated `
     -out (Join-Path $installerDir "obj\\")
+if ($LASTEXITCODE -ne 0) { throw "candle.exe failed with exit code $LASTEXITCODE" }
 
 & light.exe -ext WixUIExtension `
     (Join-Path $installerDir "obj\LiveWallpaper.wixobj") `
     (Join-Path $installerDir "obj\ProductComponents.wixobj") `
     -out $msiOut
+if ($LASTEXITCODE -ne 0) { throw "light.exe failed with exit code $LASTEXITCODE" }
+if (-not (Test-Path $msiOut)) { throw "MSI was not created at $msiOut" }
 
 Write-Host "Created $msiOut"
