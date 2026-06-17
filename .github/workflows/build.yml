@@ -9,9 +9,6 @@ on:
 jobs:
   build:
     runs-on: windows-latest
-    defaults:
-      run:
-        working-directory: projects/tools/livewallpaper
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
