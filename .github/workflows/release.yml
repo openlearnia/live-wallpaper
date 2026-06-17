@@ -27,12 +27,14 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: Install WiX Toolset v3
-        run: choco install wixtoolset --version=3.14.0.6526 -y --no-progress
-
-      - name: Add WiX to PATH
+      - name: Add WiX Toolset v3 to PATH
         shell: pwsh
-        run: Add-Content -Path $env:GITHUB_PATH -Value "C:\Program Files (x86)\WiX Toolset v3.14\bin"
+        run: |
+          $wixBin = "C:\Program Files (x86)\WiX Toolset v3.14\bin"
+          if (-not (Test-Path $wixBin)) {
+            choco install wixtoolset -y --no-progress
+          }
+          Add-Content -Path $env:GITHUB_PATH -Value $wixBin
 
       - name: Build MSI
         shell: pwsh
