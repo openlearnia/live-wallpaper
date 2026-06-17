@@ -45,7 +45,7 @@ Write-Host "Compiling MSI..."
     -out (Join-Path $installerDir "obj\\")
 if ($LASTEXITCODE -ne 0) { throw "candle.exe failed with exit code $LASTEXITCODE" }
 
-& light.exe -ext WixUIExtension -sice:ICE38 -sice:ICE43 `
+& light.exe -ext WixUIExtension -sval `
     (Join-Path $installerDir "obj\LiveWallpaper.wixobj") `
     (Join-Path $installerDir "obj\ProductComponents.wixobj") `
     -out $msiOut
