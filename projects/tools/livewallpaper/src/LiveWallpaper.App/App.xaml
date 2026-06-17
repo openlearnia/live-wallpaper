@@ -1,0 +1,10 @@
+﻿<Application x:Class="LiveWallpaper.App.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Application.Resources>
+        <SolidColorBrush x:Key="BackgroundBrush" Color="#1E1E2E"/>
+        <SolidColorBrush x:Key="SurfaceBrush" Color="#2A2A3C"/>
+        <SolidColorBrush x:Key="AccentBrush" Color="#7C9EFF"/>
+        <SolidColorBrush x:Key="TextBrush" Color="#E8E8F0"/>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A9DA11F1-7955-43C8-95E9-CAF98E5D09F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveWallpaper.Tests", "src\LiveWallpaper.Tests\LiveWallpaper.Tests.csproj", "{45FB049F-301C-410D-B9F9-07E39F174960}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveWallpaper.Desktop", "src\LiveWallpaper.Desktop\LiveWallpaper.Desktop.csproj", "{5A7E6799-B881-4E30-8B0B-4B871A765620}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveWallpaper.Core", "src\LiveWallpaper.Core\LiveWallpaper.Core.csproj", "{B31C53C8-5841-42AD-93BB-274A4DFB1B6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveWallpaper.Players", "src\LiveWallpaper.Players\LiveWallpaper.Players.csproj", "{9016438B-0CE3-4DE2-9232-A4C3922C20DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveWallpaper.App", "src\LiveWallpaper.App\LiveWallpaper.App.csproj", "{64F80E65-85B8-4A18-9AF7-278C80BC352E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{45FB049F-301C-410D-B9F9-07E39F174960}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45FB049F-301C-410D-B9F9-07E39F174960}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45FB049F-301C-410D-B9F9-07E39F174960}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45FB049F-301C-410D-B9F9-07E39F174960}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A7E6799-B881-4E30-8B0B-4B871A765620}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A7E6799-B881-4E30-8B0B-4B871A765620}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A7E6799-B881-4E30-8B0B-4B871A765620}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A7E6799-B881-4E30-8B0B-4B871A765620}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B31C53C8-5841-42AD-93BB-274A4DFB1B6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B31C53C8-5841-42AD-93BB-274A4DFB1B6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B31C53C8-5841-42AD-93BB-274A4DFB1B6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B31C53C8-5841-42AD-93BB-274A4DFB1B6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9016438B-0CE3-4DE2-9232-A4C3922C20DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9016438B-0CE3-4DE2-9232-A4C3922C20DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9016438B-0CE3-4DE2-9232-A4C3922C20DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9016438B-0CE3-4DE2-9232-A4C3922C20DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64F80E65-85B8-4A18-9AF7-278C80BC352E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64F80E65-85B8-4A18-9AF7-278C80BC352E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64F80E65-85B8-4A18-9AF7-278C80BC352E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64F80E65-85B8-4A18-9AF7-278C80BC352E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{45FB049F-301C-410D-B9F9-07E39F174960} = {A9DA11F1-7955-43C8-95E9-CAF98E5D09F5}
+		{5A7E6799-B881-4E30-8B0B-4B871A765620} = {A9DA11F1-7955-43C8-95E9-CAF98E5D09F5}
+		{B31C53C8-5841-42AD-93BB-274A4DFB1B6C} = {A9DA11F1-7955-43C8-95E9-CAF98E5D09F5}
+		{9016438B-0CE3-4DE2-9232-A4C3922C20DB} = {A9DA11F1-7955-43C8-95E9-CAF98E5D09F5}
+		{64F80E65-85B8-4A18-9AF7-278C80BC352E} = {A9DA11F1-7955-43C8-95E9-CAF98E5D09F5}
+	EndGlobalSection
+EndGlobal

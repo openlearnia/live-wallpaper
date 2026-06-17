@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Live Wallpaper Sample</title>
+  <style>
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: radial-gradient(circle at 20% 20%, #7c9eff, #1e1e2e 60%);
+      font-family: Segoe UI, sans-serif;
+      color: #e8e8f0;
+    }
+  </style>
+</head>
+<body>
+  <div id="fps" style="position:absolute;left:12px;top:12px;font-size:13px;opacity:0.85;"></div>
+  <div class="orb" style="left: 10%; top: 20%; animation-delay: 0s;"></div>
+  <div class="orb" style="right: 15%; top: 35%; animation-delay: 2s;"></div>
+  <div class="orb" style="left: 40%; bottom: 10%; animation-delay: 4s;"></div>
+  <style>
+    .orb {
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      filter: blur(2px);
+      animation: float 12s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-40px) scale(1.08); }
+    }
+  </style>
+  <script>
+    function updateHud() {
+      var lw = window.liveWallpaper;
+      var el = document.getElementById('fps');
+      if (!el) return;
+      if (lw) {
+        el.textContent = 'liveWallpaper maxFps=' + lw.maxFps + (lw.paused ? ' (paused)' : '');
+      } else {
+        el.textContent = 'Waiting for liveWallpaper bridge...';
+      }
+    }
+    window.addEventListener('livewallpaper-ready', updateHud);
+    setInterval(updateHud, 1000);
+    updateHud();
+  </script>
+</body>
+</html>

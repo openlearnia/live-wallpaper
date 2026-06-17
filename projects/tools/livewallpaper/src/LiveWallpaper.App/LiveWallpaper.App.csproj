@@ -1,0 +1,83 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+
+
+  <PropertyGroup>
+
+    <OutputType>WinExe</OutputType>
+
+    <TargetFramework>net8.0-windows</TargetFramework>
+
+    <Nullable>enable</Nullable>
+
+    <ImplicitUsings>enable</ImplicitUsings>
+
+    <UseWPF>true</UseWPF>
+
+    <UseWindowsForms>true</UseWindowsForms>
+
+    <ApplicationIcon>..\..\assets\icon.ico</ApplicationIcon>
+
+    <AssemblyName>LiveWallpaper</AssemblyName>
+
+    <RootNamespace>LiveWallpaper.App</RootNamespace>
+
+  <!-- Semver: 0.y.z while in active development; 1.0.0 = first stable Openlearnia release -->
+    <Version>0.1.0</Version>
+
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+
+    <FileVersion>0.1.0.0</FileVersion>
+
+    <Company>Openlearnia</Company>
+
+    <Copyright>Copyright © 2026 Openlearnia</Copyright>
+
+  </PropertyGroup>
+
+
+
+  <ItemGroup>
+
+    <Content Include="..\..\assets\sample-web\**\*">
+
+      <Link>assets\sample-web\%(RecursiveDir)%(Filename)%(Extension)</Link>
+
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+
+    </Content>
+
+    <Content Include="..\..\assets\sample-mandelbrot\**\*">
+
+      <Link>assets\sample-mandelbrot\%(RecursiveDir)%(Filename)%(Extension)</Link>
+
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+
+    </Content>
+
+    <Content Include="..\..\assets\icon.ico">
+
+      <Link>assets\icon.ico</Link>
+
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+
+    </Content>
+
+  </ItemGroup>
+
+
+
+  <ItemGroup>
+
+    <ProjectReference Include="..\LiveWallpaper.Core\LiveWallpaper.Core.csproj" />
+
+    <ProjectReference Include="..\LiveWallpaper.Players\LiveWallpaper.Players.csproj" />
+
+    <ProjectReference Include="..\LiveWallpaper.Desktop\LiveWallpaper.Desktop.csproj" />
+
+  </ItemGroup>
+
+
+
+</Project>
+

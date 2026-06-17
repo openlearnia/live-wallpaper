@@ -1,0 +1,293 @@
+﻿<Window x:Class="LiveWallpaper.App.MainWindow"
+
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+
+        Title="Live Wallpaper" Height="720" Width="1100"
+
+        MinHeight="600" MinWidth="960"
+
+        Background="{StaticResource BackgroundBrush}">
+
+    <Grid Margin="16">
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="Auto"/>
+
+            <RowDefinition Height="*"/>
+
+        </Grid.RowDefinitions>
+
+
+
+        <StackPanel Grid.Row="0" Margin="0,0,0,12">
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Live Wallpaper Engine" FontSize="24" FontWeight="SemiBold" Foreground="{StaticResource TextBrush}"/>
+                        <TextBlock x:Name="VersionText" Margin="12,6,0,0" Foreground="#888" FontSize="12" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <TextBlock Text="An Openlearnia project" Margin="0,2,0,0" Foreground="#888" FontSize="12"/>
+                    <TextBlock x:Name="StatusText" Text="Ready" Margin="0,4,0,0" Foreground="{StaticResource AccentBrush}"/>
+                </StackPanel>
+                <Button Grid.Column="1" Content="About" Padding="12,6" VerticalAlignment="Top" Click="About_Click"/>
+            </Grid>
+
+        </StackPanel>
+
+
+
+        <Grid Grid.Row="1">
+
+            <Grid.ColumnDefinitions>
+
+                <ColumnDefinition Width="2*"/>
+
+                <ColumnDefinition Width="*"/>
+
+            </Grid.ColumnDefinitions>
+
+
+
+            <Border Grid.Column="0" Background="{StaticResource SurfaceBrush}" CornerRadius="8" Padding="12" Margin="0,0,8,0">
+
+                <DockPanel>
+
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,8">
+
+                        <TextBlock Text="Library" FontSize="16" FontWeight="SemiBold" Foreground="{StaticResource TextBrush}" VerticalAlignment="Center"/>
+
+                        <Button Content="Browse" Margin="12,0,0,0" Padding="10,4" Click="BrowseLibrary_Click"/>
+
+                        <Button Content="Add Video" Margin="8,0,0,0" Padding="10,4" Click="AddVideo_Click"/>
+
+                        <Button Content="Add Slideshow Folder" Margin="8,0,0,0" Padding="10,4" Click="AddSlideshowFolder_Click"/>
+
+                    </StackPanel>
+
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,8">
+
+                        <Button Content="All" Padding="10,4" Margin="0,0,6,0" Click="FilterButton_Click" Tag="All"/>
+
+                        <Button Content="Video" Padding="10,4" Margin="0,0,6,0" Click="FilterButton_Click" Tag="Video"/>
+
+                        <Button Content="Web" Padding="10,4" Margin="0,0,6,0" Click="FilterButton_Click" Tag="Web"/>
+
+                        <Button Content="Slideshow" Padding="10,4" Margin="0,0,6,0" Click="FilterButton_Click" Tag="Slideshow"/>
+
+                        <Button Content="Favorites" Padding="10,4" Click="FilterButton_Click" Tag="Favorites"/>
+
+                    </StackPanel>
+
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,8">
+
+                        <TextBox x:Name="LibrarySearchBox" Width="220" Padding="6,4" TextChanged="LibrarySearchBox_TextChanged"
+
+                                 ToolTip="Search by name or path"/>
+
+                        <TextBlock Text="Sort" Foreground="{StaticResource TextBrush}" VerticalAlignment="Center" Margin="12,0,6,0"/>
+
+                        <ComboBox x:Name="LibrarySortCombo" Width="140" SelectionChanged="LibrarySortCombo_SelectionChanged"/>
+
+                    </StackPanel>
+
+                    <TextBlock DockPanel.Dock="Top" x:Name="LibraryPathText" TextWrapping="Wrap" Foreground="#AAA" Margin="0,0,0,8"/>
+
+                    <ListView x:Name="LibraryList" Background="#1A1A28" Foreground="{StaticResource TextBrush}" BorderThickness="0"
+
+                              MouseDoubleClick="LibraryList_MouseDoubleClick" SelectionChanged="LibraryList_SelectionChanged">
+
+                        <ListView.ContextMenu>
+
+                            <ContextMenu>
+
+                                <MenuItem Header="Apply" Click="LibraryContextApply_Click"/>
+
+                                <MenuItem Header="Toggle Favorite" Click="LibraryContextFavorite_Click"/>
+
+                                <MenuItem Header="Open Folder" Click="LibraryContextOpenFolder_Click"/>
+
+                                <MenuItem Header="Remove from Library" Click="LibraryContextRemove_Click"/>
+
+                            </ContextMenu>
+
+                        </ListView.ContextMenu>
+
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Wallpaper" Width="420">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" Margin="0,4">
+                                                <Border Width="96" Height="54" Background="#2A2A3A" Margin="0,0,10,0">
+                                                    <Image Source="{Binding Thumbnail}" Stretch="UniformToFill"/>
+                                                </Border>
+                                                <StackPanel VerticalAlignment="Center">
+                                                    <TextBlock Text="{Binding DisplayName}" FontWeight="SemiBold"/>
+                                                    <TextBlock Text="{Binding TypeLabel}" Foreground="#AAA" FontSize="11"/>
+                                                </StackPanel>
+                                                <TextBlock Text="{Binding FavoriteMark}" Margin="12,0,0,0" VerticalAlignment="Center" FontSize="14"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+
+                    </ListView>
+
+                </DockPanel>
+
+            </Border>
+
+
+
+            <Border Grid.Column="1" Background="{StaticResource SurfaceBrush}" CornerRadius="8" Padding="12">
+
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+
+                    <StackPanel>
+
+                        <TextBlock Text="Monitors" FontSize="16" FontWeight="SemiBold" Foreground="{StaticResource TextBrush}" Margin="0,0,0,8"/>
+
+                        <ListBox x:Name="MonitorList" Height="110" Margin="0,0,0,12" SelectionChanged="MonitorList_SelectionChanged"
+
+                                 Background="#1A1A28" Foreground="{StaticResource TextBrush}" BorderThickness="0"/>
+
+
+
+                        <TextBlock Text="Apply" FontSize="16" FontWeight="SemiBold" Foreground="{StaticResource TextBrush}" Margin="0,0,0,8"/>
+
+                        <TextBlock Text="Fit mode" Foreground="{StaticResource TextBrush}"/>
+
+                        <ComboBox x:Name="FitCombo" Margin="0,4,0,12" SelectedIndex="0">
+
+                            <ComboBoxItem Content="Fill"/>
+
+                            <ComboBoxItem Content="Fit"/>
+
+                            <ComboBoxItem Content="Stretch"/>
+
+                        </ComboBox>
+
+                        <StackPanel x:Name="SlideshowSettingsPanel" Visibility="Collapsed" Margin="0,0,0,12">
+
+                            <TextBlock Text="Slideshow interval (sec)" Foreground="{StaticResource TextBrush}"/>
+
+                            <TextBox x:Name="SlideshowIntervalBox" Width="80" HorizontalAlignment="Left" Margin="0,4,0,6" Text="30"/>
+
+                            <CheckBox x:Name="SlideshowShuffleCheck" Content="Shuffle images" Foreground="{StaticResource TextBrush}" Margin="0,0,0,6"/>
+
+                        </StackPanel>
+
+                        <TextBlock Text="Slideshow transition" Foreground="{StaticResource TextBrush}"/>
+
+                        <ComboBox x:Name="SlideshowTransitionCombo" Margin="0,4,0,12" SelectedIndex="1"/>
+
+                        <TextBlock Text="Volume" Foreground="{StaticResource TextBrush}"/>
+
+                        <Slider x:Name="VolumeSlider" Minimum="0" Maximum="1" Value="0" TickFrequency="0.1" IsSnapToTickEnabled="True" Margin="0,4,0,12"/>
+
+                        <CheckBox x:Name="ApplyAllMonitorsCheck" Content="Apply to all monitors" Foreground="{StaticResource TextBrush}" Margin="0,0,0,6"/>
+
+                        <CheckBox x:Name="CreatePlaylistCheck" Content="Create playlist from library filter" Foreground="{StaticResource TextBrush}" Margin="0,0,0,8"/>
+
+                        <Button Content="Apply Wallpaper" Padding="12,6" Click="ApplyButton_Click" Margin="0,0,0,16"/>
+
+
+
+                        <TextBlock Text="Settings" FontSize="16" FontWeight="SemiBold" Foreground="{StaticResource TextBrush}" Margin="0,0,0,8"/>
+
+                        <CheckBox x:Name="StartupCheck" Content="Run at startup" Foreground="{StaticResource TextBrush}" Margin="0,0,0,6"/>
+
+                        <CheckBox x:Name="StartMinimizedCheck" Content="Start minimized to tray" Foreground="{StaticResource TextBrush}" Margin="0,0,0,6"/>
+
+                        <CheckBox x:Name="TrayNotificationsCheck" Content="Tray notifications on apply" Foreground="{StaticResource TextBrush}" Margin="0,0,0,6"/>
+
+                        <CheckBox x:Name="FullscreenPauseCheck" Content="Pause on fullscreen" Foreground="{StaticResource TextBrush}" Margin="0,0,0,6"/>
+
+                        <CheckBox x:Name="BatteryPauseCheck" Content="Pause on battery" Foreground="{StaticResource TextBrush}" Margin="0,0,0,6"/>
+
+                        <CheckBox x:Name="PausedCheck" Content="Manually paused" Foreground="{StaticResource TextBrush}" Margin="0,0,0,6"/>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+
+                            <TextBlock Text="Idle pause (min)" Foreground="{StaticResource TextBrush}" VerticalAlignment="Center" Width="110"/>
+
+                            <TextBox x:Name="IdleMinutesBox" Width="60"/>
+
+                        </StackPanel>
+
+                        <TextBlock Text="Power profile" Foreground="{StaticResource TextBrush}"/>
+
+                        <ComboBox x:Name="PowerProfileCombo" Margin="0,4,0,6" SelectionChanged="PowerProfileCombo_SelectionChanged"/>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+
+                            <TextBlock Text="Max FPS" Foreground="{StaticResource TextBrush}" VerticalAlignment="Center" Width="110"/>
+
+                            <TextBox x:Name="MaxFpsBox" Width="60" IsEnabled="False"/>
+
+                        </StackPanel>
+
+                        <TextBlock Text="Balanced/Performance use native playback; Battery Saver throttles video." Foreground="#888" FontSize="11" TextWrapping="Wrap" Margin="0,0,0,8"/>
+
+                        <TextBlock Text="Video backend" Foreground="{StaticResource TextBrush}"/>
+
+                        <ComboBox x:Name="VideoBackendCombo" Margin="0,4,0,6"/>
+
+                        <TextBlock Text="Max render height" Foreground="{StaticResource TextBrush}"/>
+
+                        <ComboBox x:Name="MaxRenderHeightCombo" Margin="0,4,0,12" SelectedIndex="0"/>
+
+                        <TextBlock Text="Global hotkeys" FontSize="14" FontWeight="SemiBold" Foreground="{StaticResource TextBrush}" Margin="0,0,0,6"/>
+
+                        <TextBlock Text="Format: Ctrl+Shift+P, Ctrl+Shift+Right" Foreground="#888" FontSize="11" TextWrapping="Wrap" Margin="0,0,0,6"/>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                            <TextBlock Text="Pause / Resume" Foreground="{StaticResource TextBrush}" VerticalAlignment="Center" Width="110"/>
+                            <TextBox x:Name="HotkeyPauseBox" Width="180"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                            <TextBlock Text="Next wallpaper" Foreground="{StaticResource TextBrush}" VerticalAlignment="Center" Width="110"/>
+                            <TextBox x:Name="HotkeyNextBox" Width="180"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                            <TextBlock Text="Previous" Foreground="{StaticResource TextBrush}" VerticalAlignment="Center" Width="110"/>
+                            <TextBox x:Name="HotkeyPrevBox" Width="180"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+                            <TextBlock Text="Show window" Foreground="{StaticResource TextBrush}" VerticalAlignment="Center" Width="110"/>
+                            <TextBox x:Name="HotkeyShowBox" Width="180"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+
+                            <Button Content="Save Settings" Padding="12,6" Click="SaveSettings_Click"/>
+
+                            <Button Content="Pause / Resume" Padding="12,6" Margin="8,0,0,0" Click="PauseButton_Click"/>
+
+                        </StackPanel>
+
+                    </StackPanel>
+
+                </ScrollViewer>
+
+            </Border>
+
+        </Grid>
+
+    </Grid>
+
+</Window>
+
