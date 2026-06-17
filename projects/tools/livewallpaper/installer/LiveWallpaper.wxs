@@ -25,9 +25,6 @@
   </Fragment>
 
   <Fragment>
-    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER" Source="$(var.PublishDir)">
-      <!-- Populated by heat in scripts/build-installer.ps1 -->
-    </ComponentGroup>
     <Component Id="ApplicationShortcut" Directory="ApplicationProgramsFolder" Guid="*">
       <Shortcut Id="StartMenuShortcut" Name="Live Wallpaper"
                 Target="[INSTALLFOLDER]LiveWallpaper.exe" WorkingDirectory="INSTALLFOLDER" />

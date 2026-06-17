@@ -14,6 +14,10 @@ dotnet publish (Join-Path $root "src\LiveWallpaper.App\LiveWallpaper.App.csproj"
     -o $publishDir
 
 New-Item -ItemType Directory -Force -Path (Split-Path $msiOut) | Out-Null
+$objDir = Join-Path $installerDir "obj"
+if (Test-Path $wxsGenerated) { Remove-Item $wxsGenerated -Force }
+if (Test-Path $objDir) { Remove-Item $objDir -Recurse -Force }
+New-Item -ItemType Directory -Force -Path $objDir | Out-Null
 
 $heat = Get-Command heat.exe -ErrorAction SilentlyContinue
 $candle = Get-Command candle.exe -ErrorAction SilentlyContinue

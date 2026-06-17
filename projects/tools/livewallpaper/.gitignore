@@ -5,4 +5,7 @@ obj/
 *.suo
 *.log
 publish/
+dist/
 TestResults/
+installer/ProductComponents.wxs
+installer/obj/
